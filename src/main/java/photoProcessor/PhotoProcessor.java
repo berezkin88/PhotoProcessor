@@ -1,13 +1,15 @@
 package photoProcessor;
 
+import java.io.File;
+
 public class PhotoProcessor {
 
     public static void main(String[] args) {
 
-        String path2 = "D:\\app\\Tests\\test.jpg";
+        File path2 = new File("D:\\app\\Tests\\TestDirectory");
 
-        Editor editor = new Editor(path2);
+        EditorProcessor ep = new EditorProcessor();
 
-        editor.edit();
+        ep.edit(path2);
     }
 }

@@ -16,19 +16,14 @@ import java.io.IOException;
 
 public class Editor {
 
-    private static int pattern;
-    private static BufferedImage imgIn, imgOut;
-    private static File f;
+    private static BufferedImage imgIn;
     private static Graphics2D graph;
     private static AffineTransform tx = new AffineTransform();
-    private String pathObject;
 
-    Editor(String pathObject) {
-        this.pathObject = pathObject;
+    Editor() {
     }
 
-    public void edit() {
-        f = new File(pathObject);
+    public static void edit(File f) {
 
         try {
 
@@ -37,10 +32,10 @@ public class Editor {
             System.out.println("Reading complete.");
 
 //            set patter
-            pattern = imgIn.getWidth();
+            int pattern = imgIn.getWidth()>imgIn.getHeight()?imgIn.getWidth():imgIn.getHeight();//resolve pattern
 
 //            drawing
-            imgOut = new BufferedImage(pattern, pattern, BufferedImage.TYPE_3BYTE_BGR); //create background
+            BufferedImage imgOut = new BufferedImage(pattern, pattern, BufferedImage.TYPE_3BYTE_BGR); //create background
             graph = imgOut.createGraphics();
             graph.setPaint(new Color(255, 255, 255));//background color (here - white)
             graph.fillRect(0, 0, pattern, pattern);//fill background with color^^
@@ -48,13 +43,11 @@ public class Editor {
             imgOut = toRotate(imgOut, f);// check for rotation
 
 //            Saving file
-            ImageIO.write(imgOut, "jpg", new File("D:\\app\\Tests\\testOut.jpg"));
+            ImageIO.write(imgOut, "jpg", new File(f.getParent()+"\\new_"+f.getName()));
             System.out.println("Writing complete.");
         } catch (IOException e) {
             System.out.println("Error: " + e);
-        } catch (JpegProcessingException e) {
-            e.printStackTrace();
-        } catch (MetadataException e) {
+        } catch (JpegProcessingException | MetadataException e) {
             e.printStackTrace();
         }
 
@@ -94,14 +87,6 @@ public class Editor {
         Editor.imgIn = imgIn;
     }
 
-    public static File getF() {
-        return f;
-    }
-
-    public static void setF(File f) {
-        Editor.f = f;
-    }
-
     public static Graphics2D getGraph() {
         return graph;
     }
@@ -116,13 +101,5 @@ public class Editor {
 
     public static void setTx(AffineTransform tx) {
         Editor.tx = tx;
-    }
-
-    public String getPathObject() {
-        return pathObject;
-    }
-
-    public void setPathObject(String pathObject) {
-        this.pathObject = pathObject;
     }
 }
