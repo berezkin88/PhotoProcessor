@@ -1,9 +1,9 @@
 package photoProcessor;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public class EditorProcessor {
 
@@ -12,18 +12,36 @@ public class EditorProcessor {
 
     public void edit(File file) {
 
+//        creating a new directory for storing files
         String directory = createDir(file) + "\\Processed";
 
+//        Check if the file is directory
         if (file.isDirectory()) {
-        List<File> files = Arrays.asList(file.listFiles());
-        files.forEach(Editor::edit);
+            List<File> files = Arrays.asList(file.listFiles());
+//            Throw the IOException if the directory is empty, if not - call edit()
+            try {
+                if (files.isEmpty()) {
+                    throw new IOException();
+                } else {
+                    File newDir = new File(directory);
+                    newDir.mkdir();
+                    files.forEach((f) -> {
+                        Editor.edit(f, directory);
+                    });
+                }
+            } catch (IOException e) {
+                System.out.println("Oops... the directory is empty");
+            }
+//            call edit() if file is a single file
         } else {
-            Editor.edit(file);
+            Editor.edit(file, directory);
         }
     }
 
+    //    Creating new directory
     private String createDir(File file) {
 
+//        checking if the file is a single file or not
         if (file.getName().contains(".")) {
             return file.getParent();
         } else {

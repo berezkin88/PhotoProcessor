@@ -23,7 +23,7 @@ public class Editor {
     Editor() {
     }
 
-    public static void edit(File f) {
+    public static void edit(File f, String directory) {
 
         try {
 
@@ -43,7 +43,7 @@ public class Editor {
             imgOut = toRotate(imgOut, f);// check for rotation
 
 //            Saving file
-            ImageIO.write(imgOut, "jpg", new File(f.getParent()+"\\new_"+f.getName()));
+            ImageIO.write(imgOut, "jpg", new File(directory +"\\new_"+f.getName()));
             System.out.println("Writing complete.");
         } catch (IOException e) {
             System.out.println("Error: " + e);
