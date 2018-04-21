@@ -29,7 +29,7 @@ public class Editor {
 
 //            reading files
             imgIn = ImageIO.read(f);
-            System.out.println("Reading complete.");
+            System.out.println("Processing " + f.getName());
 
 //            set patter
             int pattern = imgIn.getWidth()>imgIn.getHeight()?imgIn.getWidth():imgIn.getHeight();//resolve pattern
@@ -44,11 +44,9 @@ public class Editor {
 
 //            Saving file
             ImageIO.write(imgOut, "jpg", new File(directory +"\\new_"+f.getName()));
-            System.out.println("Writing complete.");
-        } catch (IOException e) {
+            System.out.println("Processing complete.");
+        } catch (IOException | JpegProcessingException | MetadataException e) {
             System.out.println("Error: " + e);
-        } catch (JpegProcessingException | MetadataException e) {
-            e.printStackTrace();
         }
 
     }

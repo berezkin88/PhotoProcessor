@@ -24,7 +24,8 @@ public class EditorProcessor {
                     throw new IOException();
                 } else {
                     File newDir = new File(directory);
-                    newDir.mkdir();
+//                    creating directory if needed
+                    System.out.println("New directory created " + newDir.mkdir() + "\n");
                     files.forEach((f) -> {
                         Editor.edit(f, directory);
                     });
@@ -36,6 +37,8 @@ public class EditorProcessor {
         } else {
             Editor.edit(file, directory);
         }
+
+        System.out.println("\nEditing complete");
     }
 
     //    Creating new directory
