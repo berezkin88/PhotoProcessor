@@ -17,9 +17,9 @@ public class GUI extends Application {
     private Label text, directory;
     private TextField textField;
     private TextArea textArea;
-    EditorProcessor ep = new EditorProcessor();
+    private EditorProcessor ep = new EditorProcessor();
 
-    Button process = new Button("Process");
+    private Button process = new Button("Process");
 
     @Override
     public void start(Stage primaryStage) throws Exception {

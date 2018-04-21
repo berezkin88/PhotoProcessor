@@ -1,15 +1,12 @@
 package photoProcessor;
 
-import java.io.File;
+import javafx.application.Application;
 
 public class PhotoProcessor {
 
     public static void main(String[] args) {
 
-        File path2 = new File("D:\\app\\Tests\\TestDirectory");
-
-        EditorProcessor ep = new EditorProcessor();
-
-        ep.edit(path2);
+//        launching GUI
+        Application.launch(GUI.class, args);
     }
 }
